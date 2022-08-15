@@ -4,7 +4,7 @@ import subprocess
 
 import local
 import workshop
-
+import download
 
 def mod_param(name, mods):
     return ' -{}="{}" '.format(name, ";".join(mods))
@@ -42,6 +42,14 @@ mods = []
 
 if os.environ["MODS_PRESET"] != "":
     mods.extend(workshop.preset(os.environ["MODS_PRESET"]))
+
+if os.environ["DOWNLOAD_CONFIG"] != "":
+    os.makedirs("/arma3/configs/")
+    download.download(os.environ["DOWNLOAD_CONFIG"], "/arma3/configs/{}".format(CONFIG_FILE))
+
+if os.environ["DOWNLOAD_PROFILE"] != "":
+    os.makedirs("/arma3/config/profiles")
+    download.download(os.environ["DOWNLOAD_PROFILE"], "/arma3/configs/profiles/{}".format(os.environ["ARMA_PROFILE"]))
 
 if os.environ["MODS_LOCAL"] == "true" and os.path.exists("mods"):
     mods.extend(local.mods("mods"))
