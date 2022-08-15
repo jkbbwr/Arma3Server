@@ -2,9 +2,10 @@ import os
 import re
 import subprocess
 
+import download
 import local
 import workshop
-import download
+
 
 def mod_param(name, mods):
     return ' -{}="{}" '.format(name, ";".join(mods))
@@ -45,11 +46,16 @@ if os.environ["MODS_PRESET"] != "":
 
 if os.environ["DOWNLOAD_CONFIG"] != "":
     os.makedirs("/arma3/configs/")
-    download.download(os.environ["DOWNLOAD_CONFIG"], "/arma3/configs/{}".format(CONFIG_FILE))
+    download.download(
+        os.environ["DOWNLOAD_CONFIG"], "/arma3/configs/{}".format(CONFIG_FILE)
+    )
 
 if os.environ["DOWNLOAD_PROFILE"] != "":
     os.makedirs("/arma3/config/profiles")
-    download.download(os.environ["DOWNLOAD_PROFILE"], "/arma3/configs/profiles/{}".format(os.environ["ARMA_PROFILE"]))
+    download.download(
+        os.environ["DOWNLOAD_PROFILE"],
+        "/arma3/configs/profiles/{}".format(os.environ["ARMA_PROFILE"]),
+    )
 
 if os.environ["MODS_LOCAL"] == "true" and os.path.exists("mods"):
     mods.extend(local.mods("mods"))

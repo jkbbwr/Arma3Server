@@ -12,5 +12,3 @@ def download(url, filename):
     remote = urllib.request.urlopen(req)
     with open(filename, "wb") as f:
         f.write(remote.read())
-
-
