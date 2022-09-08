@@ -2,7 +2,6 @@ version: '3.8'
 services:
   arma3:
     build: .
-    image: synixebrett/arma3server
     platform: linux/amd64
     container_name: arma3
     network_mode: host
@@ -11,5 +10,6 @@ services:
       - './configs:/arma3/configs'
       - './mods:/arma3/mods'
       - './servermods:/arma3/servermods'
+      - './workshop:/arma3/steamapps/workshop/content/107410'
     env_file: .env
     restart: unless-stopped

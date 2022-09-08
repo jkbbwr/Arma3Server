@@ -35,8 +35,7 @@ if os.environ["SKIP_INSTALL"] in ["", "false"]:
     if env_defined("STEAM_BRANCH_PASSWORD"):
         steamcmd.extend(["-betapassword", os.environ["STEAM_BRANCH_PASSWORD"]])
     steamcmd.extend(["validate", "+quit"])
-    subprocess.call(steamcmd)
-
+    subprocess.check_call(steamcmd)
 # Mods
 
 mods = []
@@ -59,6 +58,19 @@ if os.environ["DOWNLOAD_PROFILE"] != "":
 
 if os.environ["MODS_LOCAL"] == "true" and os.path.exists("mods"):
     mods.extend(local.mods("mods"))
+
+print("rename hack?")
+
+for path, dirs, files in os.walk("/arma3/steamapps/workshop/content/107410"):
+    for dir in dirs:
+        target = os.path.join(path, dir)
+        os.rename(target, target.lower())
+
+for path, dirs, files in os.walk("/arma3/steamapps/workshop/content/107410"):
+    for file in files:
+        target = os.path.join(path, file)
+        os.rename(target, target.lower())
+
 
 launch = "{} -limitFPS={} -world={} {} {}".format(
     os.environ["ARMA_BINARY"],

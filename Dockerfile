@@ -13,6 +13,7 @@ RUN apt-get update \
         libcurl4 \
         wget \
         ca-certificates \
+        net-tools \
     && \
     apt-get remove --purge -y \
     && \
